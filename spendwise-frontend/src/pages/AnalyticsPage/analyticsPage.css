@@ -1,0 +1,88 @@
+.analytics-container {
+  padding: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+.analytics-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 1.5rem;
+}
+
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.analytics-card {
+  background-color: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--card-shadow);
+  padding: 1.5rem;
+  transition: transform 0.2s ease;
+}
+
+.analytics-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.analytics-subtitle {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+}
+
+.chart-container {
+  width: 100%;
+  height: 300px;
+}
+
+.analytics-summary {
+  background-color: var(--background);
+  padding: 1rem;
+  border-radius: var(--radius);
+  margin-top: 1.5rem;
+}
+
+.summary-text {
+  color: var(--text-color);
+  font-size: 0.95rem;
+  margin: 0.5rem 0;
+}
+
+.summary-text strong {
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+.recharts-tooltip {
+  background-color: var(--white) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: var(--card-shadow) !important;
+  padding: 0.5rem !important;
+}
+
+.recharts-legend-item-text {
+  color: var(--text-color) !important;
+}
+
+.recharts-cartesian-axis-tick-value {
+  fill: var(--text-light) !important;
+}
+
+@media (max-width: 768px) {
+  .analytics-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .analytics-container {
+    padding: 1rem;
+  }
+}

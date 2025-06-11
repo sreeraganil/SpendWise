@@ -1,0 +1,74 @@
+.inbox-icon {
+  position: relative;
+  background: var(--primary-color);
+  width: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  cursor: pointer;
+  user-select: none;
+}
+.inbox-icon span {
+  color: var(--white);
+}
+.inbox-icon .dot {
+  position: absolute;
+  top: -0.2rem;
+  right: -0.2rem;
+  height: 0.8rem;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background: var(--danger-color);
+}
+
+.inbox-icon .payment-requests {
+  position: absolute;
+  top: 4rem;
+  right: 0;
+  width: clamp(300px, 95vw, 500px);
+  height: auto;
+  background: var(--primary-color);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 0.5rem;
+  border: 1px solid #ffffff61;
+}
+
+.payment-requests p {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--white);
+  opacity: 0.8;
+}
+
+.payment-requests .payment-list {
+  margin: 0.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--primary-color);
+  border-radius: var(--radius);
+  padding: 0.3rem;
+}
+.payment-list p {
+  color: var(--white);
+  text-transform: capitalize;
+}
+.payment-list .btns {
+  display: flex;
+  gap: 0.7rem;
+}
+
+.payment-list button {
+  background: red;
+  padding: 0.3rem;
+  margin-top: 0;
+}
+.payment-list button.yes {
+  background: var(--success-color);
+}
+.payment-list button.no {
+  background: var(--danger-color);
+}

@@ -1,0 +1,15 @@
+.dashboard{
+    min-height: 100vh;
+}
+.dashboard .setion_1{
+    /* background-color: var(--primary-color); */
+    padding: 0.5rem 0.2rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.dashboard .setion_2{
+    display: flex;
+    justify-content: center;
+}

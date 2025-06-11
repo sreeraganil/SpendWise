@@ -1,0 +1,53 @@
+:root {
+  --primary-color: #4361ee;
+  --primary-color-hover: #3a56d4;
+  --danger-color: #ef4444;
+  --danger-hover: #dc2828;
+  --success-color: #10b981;
+  --success-hover: #059669;
+  --warning-color: #f59e0b;
+  --warning-hover: #d97706;
+  --info-color: #3b82f6;
+  --info-hover: #2563eb;
+  
+  --background: #f8fafc;
+  --border-color: #e2e8f0;
+  --input-border: #cbd5e1;
+  --link-color: #4361ee;
+  --text-color: #1e293b;
+  --text-light: #64748b;
+  --white: #ffffff;
+
+  --radius: 12px;
+  --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text-color);
+  background: linear-gradient(135deg, #3b82f6 0%, #5b74e7 25%, #4361ee 50%, #3153eb 75%, #1c42eb 100%);
+}
+
+input[type="text"],
+input:not([type="email"]):not([type="password"]) {
+  text-transform: capitalize;
+}
+
+#upiId{
+  text-transform: none;
+}
+
+#root{
+  background: transparent;
+  padding-bottom: 1rem;
+}
+

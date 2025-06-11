@@ -1,0 +1,19 @@
+.network-toast {
+  background: var(--white) !important;
+  color: var(--text-color) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: var(--shadow) !important;
+  padding: 1rem !important;
+}
+
+.network-toast.Toastify__toast--success {
+  border-left: 4px solid var(--success-color) !important;
+}
+
+.network-toast.Toastify__toast--error {
+  border-left: 4px solid var(--danger-color) !important;
+}
+
+.network-toast .Toastify__close-button {
+  color: var(--text-light) !important;
+}

@@ -1,0 +1,149 @@
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.6rem;
+  background: var(--white);
+  color: var(--text-color);
+  box-shadow: var(--shadow);
+  border-bottom-left-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
+  position: relative;
+  z-index: 10;
+}
+.header-left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.header-left .logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.header-left h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin: 0;
+}
+
+.profile-section-icon {
+  position: relative;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.profile-btn {
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 0.5rem;
+  font-size: 1rem;
+  color: var(--text-color);
+  padding: 0.4rem 0.6rem;
+  border-radius: var(--radius);
+  transition: background 0.2s;
+  margin-top: 0;
+}
+
+.profile-btn:hover {
+  background: rgba(67, 97, 238, 0.1);
+}
+
+.profile-avatar {
+  background: var(--primary-color);
+  color: var(--white);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.dropdown-icon {
+  transition: transform 0.3s ease;
+}
+
+.dropdown-icon.open {
+  transform: rotate(180deg);
+}
+
+.profile-menu {
+  position: absolute;
+  top: calc(100% + 1.3rem);
+  right: 0;
+  background: var(--white);
+  box-shadow: var(--shadow);
+  border-radius: var(--radius);
+  overflow: hidden;
+  min-width: 140px;
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 0.1rem;
+  padding: 0.5rem;
+}
+
+.nav-link {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--white);
+  background: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 0.7rem;
+  transition: background 0.2s ease;
+  border-radius: var(--radius);
+  white-space: nowrap;
+}
+.nav-link:hover {
+  background: var(--primary-color-hover);
+}
+.logout {
+  background: var(--danger-color);
+}
+
+.logout:hover {
+  background: var(--danger-hover);
+}
+
+.logout span {
+  font-size: 1.3rem;
+}
+
+@media (max-width: 568px) {
+  .header-left {
+    gap: 0.2rem;
+  }
+
+  .header-left h1 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin: 0;
+  }
+  
+  .dashboard-header {
+    padding: 1rem;
+  }
+  .profile-section-icon {
+    gap: 0.5rem;
+  }
+
+  .profile-name{
+    display: none;
+  }
+}

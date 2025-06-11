@@ -1,0 +1,382 @@
+.expense-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  max-width: 420px;
+  width: 100%;
+  margin: 2rem auto;
+  overflow: hidden;
+}
+
+.optional {
+  color: var(--text-light);
+}
+
+.card-header {
+  padding: 1.5rem;
+  background-color: var(--white);
+  color: var(--text-color);
+  text-align: center;
+  border-bottom: 1px solid var(--input-border);
+}
+
+.card-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+
+.card-header p {
+  margin: 0.5rem 0 0;
+  font-size: 0.95rem;
+  opacity: 0.9;
+  color: var(--text-light);
+}
+
+.expense-form {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.expense-form input:not(.share-toggle-input):not(.friend-split-checkbox):not(.custom-amount-input),
+.category-select select {
+  padding: 0.875rem;
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  width: 100%;
+  transition: all 0.2s ease;
+  background-color: var(--white);
+  color: var(--text-color);
+}
+
+.expense-form input:focus,
+.category-select select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+}
+
+.amount-input {
+  position: relative;
+}
+
+.currency {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.amount-input input {
+  padding-left: 32px !important;
+}
+
+.category-select {
+  position: relative;
+}
+
+.category-select select {
+  appearance: none;
+  padding-right: 40px;
+}
+
+.select-arrow {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--text-light);
+}
+
+button {
+  padding: 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+button:hover {
+  background-color: var(--primary-color-hover);
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Friend */
+.share-toggle-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  background-color: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--card-shadow);
+  transition: all 0.2s ease;
+}
+
+.share-toggle-container:hover {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.share-toggle-label {
+  font-weight: 500;
+  color: var(--text-color);
+  cursor: pointer;
+  user-select: none;
+  flex-grow: 1;
+}
+
+.share-toggle-input {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--primary-color);
+  cursor: pointer;
+}
+
+.share-toggle-container .slide {
+  position: relative;
+  cursor: pointer;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 24px;
+  height: 20px;
+  width: 34px;
+}
+
+.share-toggle-container .slide:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 2px;
+  bottom: 2px;
+  background-color: var(--white);
+  transition: .4s;
+  border-radius: 50%;
+  z-index: 10;
+}
+
+#sharetofriend:checked + .slide {
+  background-color: var(--primary-color);
+}
+
+#sharetofriend:checked + .slide:before {
+  transform: translateX(14px);
+}
+
+.split-mode-toggle {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background-color: var(--background);
+  border-radius: var(--radius);
+}
+
+.split-mode-toggle label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: calc(var(--radius) - 4px);
+  background-color: var(--white);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex: 1;
+  justify-content: center;
+  box-shadow: var(--card-shadow);
+  white-space: nowrap;
+}
+
+.split-mode-toggle label:hover {
+  background-color: var(--border-color);
+}
+
+.split-mode-toggle input[type="radio"] {
+  accent-color: var(--primary-color);
+  margin: 0;
+}
+
+
+/* Friend */
+.friend-split-container {
+  margin-top: 0.5rem;
+  padding: 1rem;
+  background-color: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  animation: fadeIn 0.3s ease;
+}
+
+.friend-split-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: var(--text-color);
+  font-size: 0.95rem;
+}
+
+.friend-split-title svg {
+  color: var(--primary-color);
+}
+
+/* Friend List */
+.friend-split-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 250px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+/* Friend Option */
+.friend-split-option {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-radius: calc(var(--radius) - 4px);
+  background-color: var(--background);
+  transition: all 0.2s ease;
+}
+
+.friend-split-option label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+
+.friend-split-checkbox {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: var(--primary-color);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.friend-split-info {
+  font-size: 0.9rem;
+  color: var(--text-color);
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.friend-split-email {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  display: block;
+}
+
+/* Custom Amount Input */
+.custom-amount-input {
+  margin-left: 2rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--input-border);
+  border-radius: calc(var(--radius) - 4px);
+  font-size: 0.9rem;
+  width: calc(100% - 2rem);
+  background-color: var(--white);
+}
+
+.custom-amount-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.1);
+}
+
+/* Empty State */
+.friend-split-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  color: var(--text-light);
+  font-style: italic;
+  text-align: center;
+}
+
+.friend-split-empty svg {
+  color: var(--text-light);
+  opacity: 0.7;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 480px) {
+  .expense-card {
+    margin: 1rem;
+  }
+  
+  .card-header {
+    padding: 1.25rem;
+  }
+  
+  .expense-form {
+    padding: 1.25rem;
+  }
+}
