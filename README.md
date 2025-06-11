@@ -76,7 +76,7 @@ cd spendwise
 ### 2. Setup Backend
 
 ```bash
-cd Backend
+cd spendwise-backend
 npm install
 ```
 
@@ -107,7 +107,7 @@ The backend will run at http://localhost:5000 by default.
 Open a new terminal and run:
 
 ```
-cd Frontend
+cd spendwise-frontend
 npm install
 npm run dev
 ```
