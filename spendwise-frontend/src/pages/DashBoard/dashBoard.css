@@ -2,11 +2,11 @@
     min-height: 100vh;
 }
 .dashboard .setion_1{
-    /* background-color: var(--primary-color); */
     padding: 0.5rem 0.2rem;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+    background: url("../../assets/bg.png") no-repeat center / contain;
 }
 
 .dashboard .setion_2{

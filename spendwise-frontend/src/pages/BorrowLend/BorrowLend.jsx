@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import API from "../../config/axios";
 import "./borrowLend.css";
 import BackHeader from "../../component/BackHeader/BackHeader";
+import ConfirmModal from "../../component/ConfirmModal/ConfirmModal";
 
 const BorrowLend = () => {
   const [entries, setEntries] = useState([]);
@@ -15,6 +16,8 @@ const BorrowLend = () => {
   });
   const [editId, setEditId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [itemToDelete, setitemToDelete] = useState(null);
 
   const fetchEntries = async () => {
     try {
@@ -63,14 +66,12 @@ const BorrowLend = () => {
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this entry?")) {
-      try {
-        const res = await API.delete(`/borrowlend/${id}`);
-        toast.success(res.data.message);
-        fetchEntries();
-      } catch (err) {
-        toast.error("Error deleting entry");
-      }
+    try {
+      const res = await API.delete(`/borrowlend/${id}`);
+      toast.success(res.data.message);
+      fetchEntries();
+    } catch (err) {
+      toast.error("Error deleting entry");
     }
   };
 
@@ -88,6 +89,24 @@ const BorrowLend = () => {
   useEffect(() => {
     fetchEntries();
   }, []);
+
+  const askToDelete = (id) => {
+    setitemToDelete(id);
+    setModalOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    if (itemToDelete) {
+      await handleDelete(itemToDelete);
+    }
+    setModalOpen(false);
+    setitemToDelete(null);
+  };
+
+  const cancelDelete = () => {
+    setModalOpen(false);
+    setitemToDelete(null);
+  };
 
   return (
     <>
@@ -204,7 +223,7 @@ const BorrowLend = () => {
                   </h4>
                   <div className="entry-actions">
                     <button
-                      onClick={() => handleDelete(entry._id)}
+                      onClick={() => askToDelete(entry._id)}
                       className="delete-btn"
                     >
                       <span className="material-symbols-outlined">delete</span>
@@ -247,6 +266,12 @@ const BorrowLend = () => {
           )}
         </div>
       </div>
+      <ConfirmModal
+        isOpen={modalOpen}
+        onConfirm={confirmDelete}
+        onCancel={cancelDelete}
+        message="Are you sure you want to delete this record?"
+      />
     </>
   );
 };

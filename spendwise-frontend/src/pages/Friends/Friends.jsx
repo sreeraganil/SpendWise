@@ -4,11 +4,14 @@ import API from "../../config/axios";
 import BackHeader from "../../component/BackHeader/BackHeader";
 import useStore from "../../store/zustand";
 import "./friends.css";
+import ConfirmModal from "../../component/ConfirmModal/ConfirmModal";
 
 const FriendRequest = () => {
   const [email, setEmail] = useState("");
   const { friends, fetchFriendsData, pendingRequests } = useStore();
   const [isLoading, setIsLoading] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [friendToDelete, setfriendToDelete] = useState(null);
 
   const sendRequest = async (e) => {
     e.preventDefault();
@@ -67,6 +70,24 @@ const FriendRequest = () => {
   useEffect(() => {
     fetchFriendsData();
   }, []);
+
+  const askToDelete = (id) => {
+    setfriendToDelete(id);
+    setModalOpen(true);
+  };
+
+  const confirmDelete = () => {
+    if (friendToDelete) {
+      handleRemoveFriend(friendToDelete);
+    }
+    setModalOpen(false);
+    setfriendToDelete(null);
+  };
+
+  const cancelDelete = () => {
+    setModalOpen(false);
+    setfriendToDelete(null);
+  };
 
   return (
     <>
@@ -192,7 +213,7 @@ const FriendRequest = () => {
                       <span className="user-email">{friend.email}</span>
                     </div>
                     <button
-                      onClick={() => handleRemoveFriend(friend._id)}
+                      onClick={() => askToDelete(friend._id)}
                       className="remove-btn"
                       disabled={isLoading}
                     >
@@ -205,6 +226,12 @@ const FriendRequest = () => {
           </div>
         </div>
       </div>
+      <ConfirmModal
+        isOpen={modalOpen}
+        onConfirm={confirmDelete}
+        onCancel={cancelDelete}
+        message="Are you sure you want to delete this friend?"
+      />
     </>
   );
 };

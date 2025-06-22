@@ -81,8 +81,22 @@
   .analytics-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .analytics-container {
     padding: 1rem;
+  }
+
+  .chart-container {
+    width: 105%;
+    position: relative;
+    left: -2rem;
+  }
+}
+
+@media (max-width: 473px) {
+  .chart-container {
+    width: 110%;
+    position: relative;
+    left: -2rem;
   }
 }

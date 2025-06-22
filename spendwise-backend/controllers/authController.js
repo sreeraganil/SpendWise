@@ -31,8 +31,12 @@ export const register = async (req, res) => {
     sendVerificationMail(token, email);
 
     res
-      .status(201)
-      .json({ success: true, message: "User registered successfully" });
+  .status(201)
+  .json({
+    success: true,
+    message: "Registered successfully. Check your email to verify before login."
+  });
+
   } catch (err) {
     res
       .status(500)

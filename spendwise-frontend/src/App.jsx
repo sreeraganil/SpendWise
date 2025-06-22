@@ -1,21 +1,33 @@
 import { Route, Routes } from "react-router-dom";
-import DashBoard from "./pages/DashBoard/DashBoard";
-import Login from "./pages/Login/Login";
-import Register from "./pages/Register/Register";
+import { Suspense, lazy } from "react";
 import { ToastContainer } from "react-toastify";
 import ProtectedRoute from "./component/ProtectedRoute";
 import GuestRoute from "./component/GuestRoute";
-import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
-import Profile from "./pages/Profile/Profile";
-import History from "./pages/History/History";
-import NotFound from "./pages/NotFound/NotFound";
 import NetworkStatus from "./component/NetworkStatus/NetworkStatus";
-import BorrowLend from "./pages/BorrowLend/BorrowLend";
-import Friends from "./pages/Friends/Friends";
-import SharedExpenses from "./pages/SharedExpense/SharedExpense";
-import AnalyticsPage from "./pages/AnalyticsPage/AnalyticsPage";
+import LoadingScreen from "./component/LoadingScreen/LoadingScreen";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
+const DashBoard = lazy(() => import("./pages/DashBoard/DashBoard"));
+const Login = lazy(() => import("./pages/Login/Login"));
+const Register = lazy(() => import("./pages/Register/Register"));
+const ForgotPassword = lazy(() =>import("./pages/ForgotPassword/ForgotPassword"));
+const Profile = lazy(() => import("./pages/Profile/Profile"));
+const History = lazy(() => import("./pages/History/History"));
+const BorrowLend = lazy(() => import("./pages/BorrowLend/BorrowLend"));
+const Friends = lazy(() => import("./pages/Friends/Friends"));
+const SharedExpenses = lazy(() =>import("./pages/SharedExpense/SharedExpense"));
+const AnalyticsPage = lazy(() => import("./pages/AnalyticsPage/AnalyticsPage"));
+const NotFound = lazy(() => import("./pages/NotFound/NotFound"));
 
 const App = () => {
+
+  AOS.init({
+      duration: 1200,
+      easing: 'ease-in-out',
+      once: true,
+    });
+
   return (
     <>
       <Routes>
@@ -23,7 +35,9 @@ const App = () => {
           path="/"
           element={
             <ProtectedRoute>
-              <DashBoard />
+              <Suspense fallback={<LoadingScreen />}>
+                <DashBoard />
+              </Suspense>
             </ProtectedRoute>
           }
         />
@@ -31,7 +45,9 @@ const App = () => {
           path="/login"
           element={
             <GuestRoute>
-              <Login />
+              <Suspense fallback={<LoadingScreen />}>
+                <Login />
+              </Suspense>
             </GuestRoute>
           }
         />
@@ -39,7 +55,9 @@ const App = () => {
           path="/register"
           element={
             <GuestRoute>
-              <Register />
+              <Suspense fallback={<LoadingScreen />}>
+                <Register />
+              </Suspense>
             </GuestRoute>
           }
         />
@@ -47,7 +65,9 @@ const App = () => {
           path="/forgot-password"
           element={
             <GuestRoute>
-              <ForgotPassword />
+              <Suspense fallback={<LoadingScreen />}>
+                <ForgotPassword />
+              </Suspense>
             </GuestRoute>
           }
         />
@@ -55,7 +75,9 @@ const App = () => {
           path="/profile"
           element={
             <ProtectedRoute>
-              <Profile />
+              <Suspense fallback={<LoadingScreen />}>
+                <Profile />
+              </Suspense>
             </ProtectedRoute>
           }
         />
@@ -63,7 +85,9 @@ const App = () => {
           path="/history"
           element={
             <ProtectedRoute>
-              <History />
+              <Suspense fallback={<LoadingScreen />}>
+                <History />
+              </Suspense>
             </ProtectedRoute>
           }
         />
@@ -71,7 +95,9 @@ const App = () => {
           path="/borrowlend"
           element={
             <ProtectedRoute>
-              <BorrowLend />
+              <Suspense fallback={<LoadingScreen />}>
+                <BorrowLend />
+              </Suspense>
             </ProtectedRoute>
           }
         />
@@ -79,7 +105,9 @@ const App = () => {
           path="/friends"
           element={
             <ProtectedRoute>
-              <Friends />
+              <Suspense fallback={<LoadingScreen />}>
+                <Friends />
+              </Suspense>
             </ProtectedRoute>
           }
         />
@@ -87,7 +115,9 @@ const App = () => {
           path="/shared"
           element={
             <ProtectedRoute>
-              <SharedExpenses />
+              <Suspense fallback={<LoadingScreen />}>
+                <SharedExpenses />
+              </Suspense>
             </ProtectedRoute>
           }
         />
@@ -95,12 +125,15 @@ const App = () => {
           path="/analytics"
           element={
             <ProtectedRoute>
-              <AnalyticsPage />
+              <Suspense fallback={<LoadingScreen />}>
+                <AnalyticsPage />
+              </Suspense>
             </ProtectedRoute>
           }
         />
         <Route path="*" element={<NotFound />} />
       </Routes>
+
       <ToastContainer autoClose={1500} />
       <NetworkStatus />
     </>

@@ -65,7 +65,7 @@ const SharedExpenses = () => {
         ) : (
           <div className="shared-expense-grid">
             {sharedExpenses.map((expense) => (
-              <div key={expense._id} className="shared-expense-card">
+              <div key={expense._id} className="shared-expense-card" data-aos="fade-up">
                 <div className="expense-header-s">
                   <h3 className="expense-title">{expense.title}</h3>
                   <span
@@ -102,24 +102,26 @@ const SharedExpenses = () => {
                   <div className="expense-actions">
                     {expense.createdBy.upiId && (
                       <>
-                        {showQR !== expense._id && (<button
-                          onClick={() =>
-                            setShowQR(expense._id)
-                          }
-                          className="payment-button upi-pay-button"
-                        >
-                          Payment QR Code
-                        </button>)}
+                        {showQR !== expense._id && (
+                          <button
+                            onClick={() => setShowQR(expense._id)}
+                            className="payment-button upi-pay-button"
+                          >
+                            Payment QR Code
+                          </button>
+                        )}
                         {showQR == expense._id && (
-                          <div className="qrcode">
+                          <div
+                            className="qrcode"
+                          >
                             <QRCode
-                            value={`upi://pay?pa=${
-                              expense.createdBy.upiId
-                            }&am=${
-                              expense.sharedWith[0].amount
-                            }&tn=${encodeURIComponent(expense.title)}`}
-                            size={100}
-                          />
+                              value={`upi://pay?pa=${
+                                expense.createdBy.upiId
+                              }&am=${
+                                expense.sharedWith[0].amount
+                              }&tn=${encodeURIComponent(expense.title)}`}
+                              size={100}
+                            />
                           </div>
                         )}
                       </>

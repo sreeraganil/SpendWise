@@ -11,7 +11,7 @@ const useExpense = create((set, get) => {
 
     setExpenses: (data) => set({ expenses: data }),
 
-    fetchExpenses: async () => {
+    fetchExpenses: async (show=false) => {
       try {
         set({ loading: true });
         const res = await API.get("/expenses?today=true");
@@ -19,7 +19,7 @@ const useExpense = create((set, get) => {
         set({ expenses, total: totalAmount });
 
         const { user, setBalance } = useStore.getState();
-        if (user && totalAmount > user.dailyLimit) {
+        if (show && user && totalAmount > user.dailyLimit) {
           toast.warning("You've exceeded your daily limit!");
         }
         if (user) {
@@ -37,7 +37,7 @@ const useExpense = create((set, get) => {
       try {
         const res = await API.post("/expenses", data);
         if (res.data.success) {
-          get().fetchExpenses();
+          get().fetchExpenses(true);
         }
       } catch (err) {
         console.error("Add expense failed:", err);
@@ -48,7 +48,7 @@ const useExpense = create((set, get) => {
       try {
         const res = await API.put(`/expenses/${id}`, updatedData);
         if (res.data.success) {
-          get().fetchExpenses();
+          get().fetchExpenses(true);
         }
       } catch (err) {
         console.error("Update expense failed:", err);

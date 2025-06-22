@@ -81,7 +81,7 @@ const AddExpense = () => {
   };
 
   return (
-    <div className="expense-card">
+    <div className="expense-card" data-aos="zoom-in" data-aos-duration="600">
       <div className="card-header">
         <h2>Add New Expense</h2>
         <p>Track your spending easily</p>

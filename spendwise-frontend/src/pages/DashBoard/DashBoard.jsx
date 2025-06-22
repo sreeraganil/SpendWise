@@ -2,10 +2,9 @@ import { useEffect } from "react";
 import AddExpense from "../../component/AddExpense/AddExpense";
 import ExpenseList from "../../component/ExpenseList/ExpenseList";
 import Header from "../../component/Header/Header";
-
-import "./dashBoard.css";
 import API from "../../config/axios";
 import useStore from "../../store/zustand";
+import "./dashBoard.css";
 
 const DashBoard = () => {
 

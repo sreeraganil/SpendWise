@@ -1,10 +1,10 @@
 import transporter from "./transporter.js";
 
-const sendVerificationMail = async (userEmail, token) => {
+const sendVerificationMail = async (token, userEmail) => {
   const verificationUrl = `https://spendwise-web.onrender.com/api/auth/${token}`;
 
   const mailOptions = {
-    from: '"SpendWise" <no-reply@spendwise.com>',
+    from: `"SpendWise" <${process.env.EMAIL_USER}>`,
     to: userEmail,
     subject: "Verify Your Email - SpendWise",
     html: `
