@@ -1,32 +1,40 @@
 import { Route, Routes } from "react-router-dom";
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import ProtectedRoute from "./component/ProtectedRoute";
 import GuestRoute from "./component/GuestRoute";
 import NetworkStatus from "./component/NetworkStatus/NetworkStatus";
 import LoadingScreen from "./component/LoadingScreen/LoadingScreen";
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { requestNotificationPermission } from "./utilities/notification";
 
 const DashBoard = lazy(() => import("./pages/DashBoard/DashBoard"));
 const Login = lazy(() => import("./pages/Login/Login"));
 const Register = lazy(() => import("./pages/Register/Register"));
-const ForgotPassword = lazy(() =>import("./pages/ForgotPassword/ForgotPassword"));
+const ForgotPassword = lazy(() =>
+  import("./pages/ForgotPassword/ForgotPassword")
+);
 const Profile = lazy(() => import("./pages/Profile/Profile"));
 const History = lazy(() => import("./pages/History/History"));
 const BorrowLend = lazy(() => import("./pages/BorrowLend/BorrowLend"));
 const Friends = lazy(() => import("./pages/Friends/Friends"));
-const SharedExpenses = lazy(() =>import("./pages/SharedExpense/SharedExpense"));
+const SharedExpenses = lazy(() =>
+  import("./pages/SharedExpense/SharedExpense")
+);
 const AnalyticsPage = lazy(() => import("./pages/AnalyticsPage/AnalyticsPage"));
 const NotFound = lazy(() => import("./pages/NotFound/NotFound"));
 
 const App = () => {
-
   AOS.init({
-      duration: 1200,
-      easing: 'ease-in-out',
-      once: true,
-    });
+    duration: 1200,
+    easing: "ease-in-out",
+    once: true,
+  });
+
+  useEffect(() => {
+    requestNotificationPermission();
+  }, []);
 
   return (
     <>

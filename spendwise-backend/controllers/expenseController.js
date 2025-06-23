@@ -1,6 +1,7 @@
 import Expense from "../models/expenseModel.js";
 import mongoose from "mongoose";
 import User from "../models/userModel.js";
+import sendPushNotification from "../utilities/sendPushNotification.js";
 
 export const createExpense = async (req, res) => {
   try {
@@ -22,6 +23,28 @@ export const createExpense = async (req, res) => {
       sharedWith: sharedWithData,
     });
     await newExpense.save();
+
+    const user = await User.findById(req.userId).select("name");
+
+    await Promise.all(
+      sharedWithData.map(async ({ friend, amount }) => {
+        try {
+          await sendPushNotification(
+            friend,
+            "New Shared Expense",
+            `${
+              user.name || "A User"
+            } has shared an expense with you for ${amount}.`
+          );
+        } catch (notificationError) {
+          console.error(
+            `Failed to send notification to user ${friend}:`,
+            notificationError
+          );
+        }
+      })
+    );
+
     res.status(201).json({
       success: true,
       message: "Expense created successfully",
@@ -210,7 +233,10 @@ export const sharedExpenses = async (req, res) => {
   try {
     const expenses = await Expense.find({
       "sharedWith.friend": req.userId,
-    }).select("-__v").populate("createdBy", "name email upiId").sort({date: -1});
+    })
+      .select("-__v")
+      .populate("createdBy", "name email upiId")
+      .sort({ date: -1 });
 
     const shared = expenses.map((expense) => {
       const userShare = expense.sharedWith.filter(
@@ -236,15 +262,19 @@ export const acceptPaymentRequest = async (req, res) => {
 
     const expense = await Expense.findById(expenseId);
     if (!expense) {
-      return res.status(404).json({ success: false, message: "Expense not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Expense not found" });
     }
 
-    const sharedEntry = expense.sharedWith.find((entry) =>
-      entry.friend.toString() === friend.toString()
+    const sharedEntry = expense.sharedWith.find(
+      (entry) => entry.friend.toString() === friend.toString()
     );
 
     if (!sharedEntry) {
-      return res.status(400).json({ success: false, message: "You are not part of this expense" });
+      return res
+        .status(400)
+        .json({ success: false, message: "You are not part of this expense" });
     }
 
     const friendExpense = new Expense({
@@ -257,20 +287,31 @@ export const acceptPaymentRequest = async (req, res) => {
       sharedWith: [],
     });
 
-
     sharedEntry.paid = true;
     expense.amount = expense.amount - amount;
     await friendExpense.save();
     await expense.save();
 
-
     await User.findByIdAndUpdate(userId, {
       $pull: {
-        inbox: { id: expenseId }
-      }
+        inbox: { id: expenseId },
+      },
     });
 
-    res.status(200).json({ success: true, message: "Payment confirmed and inbox updated" });
+    try {
+      const user = await User.findById(req.userId).select("name");
+      await sendPushNotification(
+        friend,
+        "Payment Confirmed Accepted",
+        `Your payment request has been confirmed by ${user.name}.`
+      );
+    } catch (err) {
+      console.log(`Push notification error: ${err.message}`);
+    }
+
+    res
+      .status(200)
+      .json({ success: true, message: "Payment confirmed and inbox updated" });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
@@ -281,11 +322,28 @@ export const rejectPaymentRequest = async (req, res) => {
     const expenseId = req.params.id;
     const userId = req.userId;
 
-    await User.findByIdAndUpdate(userId, {
-      $pull: {
-        inbox: { id: expenseId }
-      }
-    });
+    const userBeforeUpdate = await User.findByIdAndUpdate(
+      userId,
+      {
+        $pull: {
+          inbox: { id: expenseId },
+        },
+      },
+      { new: false } 
+    );
+
+    try {
+      const removedItem = userBeforeUpdate.inbox.find(
+        (item) => item.id.toString() === expenseId.toString()
+      );
+      await sendPushNotification(
+        removedItem?.friend,
+        "Payment Confirmed Rejected",
+        `Your payment request has been rejected by ${removedItem?.name}.`
+      );
+    } catch (err) {
+      console.log(`Push notification error: ${err.message}`);
+    }
 
     res.status(200).json({ success: true, message: "Request rejected" });
   } catch (err) {

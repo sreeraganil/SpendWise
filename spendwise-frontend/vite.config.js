@@ -7,7 +7,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['icon-192.png.png', 'icon-512.png.png'],
+      includeAssets: ['icon-192.png', 'icon-512.png'],
       manifest: {
         name: 'SpendWise',
         short_name: 'SpendWise',

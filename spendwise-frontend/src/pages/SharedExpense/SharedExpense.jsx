@@ -55,7 +55,7 @@ const SharedExpenses = () => {
             <div className="loading-spinner"></div>
             <p>Loading shared expenses...</p>
           </div>
-        ) : sharedExpenses.length === 0 ? (
+        ) : sharedExpenses?.length === 0 ? (
           <div className="empty-state">
             <span className="material-symbols-outlined no_exp">
               broken_image
@@ -64,7 +64,7 @@ const SharedExpenses = () => {
           </div>
         ) : (
           <div className="shared-expense-grid">
-            {sharedExpenses.map((expense) => (
+            {sharedExpenses?.map((expense) => (
               <div key={expense._id} className="shared-expense-card" data-aos="fade-up">
                 <div className="expense-header-s">
                   <h3 className="expense-title">{expense.title}</h3>
