@@ -35,7 +35,7 @@ const sendWeeklySummaries = async () => {
 
     const total = expenses.reduce((sum, item) => sum + item.total, 0);
 
-    if(total) return
+    if(total === 0) continue
 
     const html = generateWeeklySummaryEmail(user.name, expenses.map(e => ({
       category: e._id,
